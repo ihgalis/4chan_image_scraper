@@ -1,43 +1,52 @@
-# 4chan_image_scraper
-Scrapes images from 4chan and downloads them to your harddrive.
+# 4chan Image Scraper
 
-## Requirements
-You would need to have a couple of modules installed in order to run this scraper.
+A lightweight, high-performance tool built with **Scrapy 2.14+** and **Python 3.14+** to download images from 4chan boards directly to your local machine.
 
+---
+
+## 🚀 Quick Start (with Pixi)
+
+[Pixi](https://pixi.sh) is the recommended way to run this scraper. It handles all dependencies (like Python, Scrapy, and Pillow) in an isolated environment automatically.
+
+1. **Install Pixi**: If you don't have it, follow the [installation guide](https://pixi.sh/#installation).
+2. **Start Scraping**:
+   ```bash
+   pixi run crawl
+   ```
+3. **Check your files**: Open the `images/full/` folder in your project directory to see the results.
+
+---
+
+## 📂 Where are the images?
+
+By default, Scrapy saves images in a subfolder called `full/` inside the `images/` directory.
+- **Path**: `./images/full/`
+- **Filenames**: Files are named using a unique SHA-1 hash of their original URL to prevent duplicates.
+
+---
+
+## 🛠️ Customization
+
+You can choose which boards to scrape and how deep the scraper should go by using environment variables in a single command.
+
+### Example: Scrape 1 page from Technology (/g/) and Wallpaper (/wg/)
+```bash
+BOARDS="g,wg" MAX_PAGES_PER_BOARD=1 pixi run crawl
 ```
-pip install scrapy
-pip install pymongo
-```
+- **BOARDS**: Comma-separated board codes (default: `v,pol`).
+- **MAX_PAGES_PER_BOARD**: Number of pages to crawl per board (default: `2`).
 
-The current code is based on MongoDB. You should install it before you run the spider. Although you can fork the code
-and throw out the MongoDB part but it prevents you from downloading the same images again and again. There are sure
-more effective ways to prevent this but I wanted to get used to MongoDB :-P
+---
 
-* [Download MongoDB Community Edition](https://www.mongodb.com/download-center?#community)
-* [Download MongoDB Compass Community Edition](https://www.mongodb.com/download-center?jmp=docs&_ga=2.106487491.1393936996.1528917700-864404028.1518123586#compass)
+## 🛡️ Security & Ethics
+- **Respectful**: Includes **AutoThrottle** (5s initial delay) and **User-Agent rotation** to avoid putting unnecessary load on 4chan's servers.
+- **Integrity**: Uses SHA-256 hashing for internal data tracking.
+- **Stealth**: Mimics real browser headers and handles cookies to avoid common bot detection blocks.
 
-## Installation
-Just download the whole project via git clone:
+---
 
-`git clone https://github.com/ihgalis/4chan_image_scraper.git`
-
-## Setup
-Attention here because you need to specify the destination folder where you want your files to be saved. MongoDB only
-hosts your meta data and since JSON only supports data up to 16 MB I decided not to place the picture into the MongoDB
-(hint: GridFS solves this)
-
-Open the file **settings.py** and change the **IMAGES_STORE** variable to a destination that suites you best:
-
-### Examples
-```
-IMAGES_STORE = 'C:\\fourchan_img'
-IMAGES_STORE = '/tmp/fourchan_img/'
-```
-
-## Let the spider crawl
-Switch to the folder where you have downloaded the files and execute with scrapy. And execute the following:
-
-```
-cd your_install_directory
-scrapy runspider spiders\fourchan_image_spider
+## 🧪 Development & Testing
+To verify the parsing logic:
+```bash
+pixi run test
 ```

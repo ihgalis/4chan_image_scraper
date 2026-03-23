@@ -5,8 +5,28 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import random
 from scrapy import signals
 
+class RotateUserAgentMiddleware(object):
+    def __init__(self, user_agents):
+        self.user_agents = user_agents
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        user_agents = crawler.settings.get('USER_AGENT_LIST')
+        if not user_agents:
+            # Fallback to the single USER_AGENT setting
+            user_agents = [crawler.settings.get('USER_AGENT')]
+        
+        s = cls(user_agents)
+        return s
+
+    def process_request(self, request, spider):
+        user_agent = random.choice(self.user_agents)
+        if user_agent:
+            request.headers.setdefault('User-Agent', user_agent)
+            # spider.logger.debug(f"Using User-Agent: {user_agent}")
 
 class FourchanImgSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,

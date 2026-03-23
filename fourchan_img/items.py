@@ -7,16 +7,16 @@
 
 import scrapy
 
-
 class ImageItem(scrapy.Item):
+    # Image downloading fields (for ImagesPipeline)
     image_urls = scrapy.Field()
     images = scrapy.Field()
-    identityhash = scrapy.Field()
 
-
-class ImageMongoItem(scrapy.Item):
+    # Metadata
     postnum = scrapy.Field()
     datetime = scrapy.Field()
     imgurl = scrapy.Field()
     identityhash = scrapy.Field()
     filenamehash = scrapy.Field()
+    board = scrapy.Field()
+    thread_url = scrapy.Field()

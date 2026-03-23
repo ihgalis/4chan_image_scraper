@@ -1,0 +1,16 @@
+[project]
+name = "4chan-image-scraper"
+version = "0.1.0"
+description = "A simple Scrapy-based tool to scrape images from 4chan boards."
+authors = ["Ihgalis"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[dependencies]
+python = ">=3.13"
+scrapy = ">=2.14"
+pillow = ">=10.0"
+
+[tasks]
+crawl = "scrapy crawl fourchan_image_spider"
+test = "PYTHONPATH=. python -m unittest discover tests"
