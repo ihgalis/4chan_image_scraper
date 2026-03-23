@@ -1,6 +1,6 @@
 # 4chan Image Scraper
 
-A lightweight, high-performance tool built with **Scrapy 2.14+** and **Python 3.14+** to download images from 4chan boards directly to your local machine.
+A lightweight, high-performance tool built with **Scrapy 2.14+** and **Python 3.13+** to download images from 4chan boards directly to your local machine.
 
 ---
 
